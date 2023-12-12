@@ -118,8 +118,7 @@ body {
   color: var(--on-bg);
   font-size: var(--fs-body);
   line-height: 1.5;
-  height: 300vh;
-  width: 200vh;
+ 
 }
 
 :focus-visible {
@@ -199,6 +198,14 @@ body {
   object-fit: cover;
 }
 
+.meta-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+}
+
 .meta-item {
   display: flex;
   align-items: center;
@@ -220,7 +227,7 @@ body {
 }
 
 .card-badge {
-  width: 2.5%;
+  width: auto;
   text-align: center;
   background-color: var(--banner-bg);
   color: var(--white);
@@ -244,7 +251,40 @@ body {
   aspect-ratio: 2 / 3;
 }
 
+.title-wrapper {
+  margin-block-end: 24px;
+}
 
+.slider-list {
+  margin-inline: -20px;
+  overflow-x: overlay;
+  padding-block-end: 16px;
+  margin-block-end: -16px;
+}
+
+.slider-list::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
+.slider-list:is(:hover, :focus-visible)::-webkit-scrollbar-thumb {
+  background-color: var(--banner-bg);
+}
+
+.slider-list::-webkit-scrollbar-button {
+  width: 20px;
+}
+
+.slider-list .slider-inner {
+  position: relative;
+  display: flex;
+  gap: 16px;
+}
+
+.slider-list .slider-inner::before,
+.slider-list .slider-inner::after {
+  content: "";
+  min-width: 4px;
+}
 
 /*-----------------------------------*\
   #HEADER
@@ -530,14 +570,6 @@ header {
   margin-block-end: 16px;
 }
 
-.meta-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 12px;
-}
-
 .banner .genre {
   margin-block: 12px;
 }
@@ -591,6 +623,38 @@ header {
   filter: brightness(1);
   box-shadow: var(--shadow-1);
 }
+
+.movie-list {
+  padding-block-start: 32px;
+}
+
+.movie-card {
+  position: relative;
+  min-width: 200px;
+}
+
+.movie-card .card-banner {
+  min-width: 100%;
+}
+
+.movie-card .title {
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-block: 8px 4px;
+}
+
+
+.movie-card .meta-item {
+  justify-content: space-between;
+}
+
+.movie-card .card-btn {
+  position: absolute;
+  inset: 0;
+}
+
 
 
 
