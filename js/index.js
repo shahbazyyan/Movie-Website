@@ -163,7 +163,6 @@ function createMovieList ({results: movieList}, title) {
 
     for (const movie of movieList) {
         const movieCard = createMovieCard(movie);
-
         movieElem.querySelector(".slider-inner").append(movieCard);
     };
 

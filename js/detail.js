@@ -12,13 +12,32 @@ function getGenres (genreList) {
  for (const {name} of genreList) newGenreList.push(name);
 
  return newGenreList.join(", ");
- };
+};
 
- function filterVideos (videoList) {
+const getCasts = (castList) => {
+    const newCastList = [];
+    for (let i = 0; i < castList.length && i < 10; i++) {
+      const { name } = castList[i];
+      newCastList.push(name);
+    }
+    return newCastList.join(", ");
+};
+
+function filterVideos (videoList) {
     return videoList.filter(({type, site}) => (type === "Trailer" || type === "Teaser" && site === "YouTube"));
- };
+};
+
+function getDirectors (crewList) {
+ const directors = crewList.filter(({job}) => job === "Director");
+
+ const directorsList = [];
+ for (const {name} of directors) directorsList.push(name);
+
+ return directorsList.join(", ");
+};
 
 sidebar();
+
 
 fetchData(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${api_key}&append_to_response=casts,videos,images,releases`, function (movie) {
     const {
@@ -32,7 +51,7 @@ fetchData(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${api_key}&appe
         genres,
         overview,
         casts: {cast, crew},
-        videos: { results: videos }
+        videos: { results: videos },
     } = movie;
 
     console.log(movieId);
@@ -52,12 +71,12 @@ movieDetail.innerHTML = `
         <div class="meta-list">
             <div class="meta-item">
                 <img src="./assets/images/star.png" alt="star" width="20" height="20">
-                <span class="span">${vote_average}</span>
+                <span class="span">${vote_average.toFixed(1)}</span>
             </div>
             <div class="separator"></div>
             <div class="meta-item">${runtime}m</div>
             <div class="separator"></div>
-            <div class="meta-item"> ${release_date} </div>
+            <div class="meta-item"> ${release_date.split("-")[0]} </div>
             <div class="meta-item card-badge">${certification}</div>
         </div>
 
@@ -66,16 +85,14 @@ movieDetail.innerHTML = `
         <ul class="detail-list">
             <div class="list-item">
                 <p class="list-name">Starring</p>
-                <p></p>
+                <p>${getCasts(cast)}</p>
             </div>
         </ul>
         <ul class="detail-list">
             <div class="list-item">
                 <p class="list-name">
-                    Starring
-                </p>
-                <p>Letitia Wright, Lupita Nyong'o, Danai Gurira, Winston Duke, Dominique Thorne, Tenoch Huerta Mejía, Angela Bassett, Florence Kasumba, Michaela Coel, Mabel Cadena
-                </p>
+                    Directed By
+                </p>${getDirectors(crew)}</p>
             </div>
         </ul>
     </div>
@@ -106,6 +123,37 @@ for (const {key, name} of filterVideos(videos)) {
 };
 
 pageContent.append(movieDetail);
+
+fetchData(`https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${api_key}&page=1`, 
+addSuggetionsMovies
+);
+
+function addSuggetionsMovies ({results: movieList}, title) {
+    const movieElem = document.createElement("section");
+    movieElem.classList.add("movie-list");
+    movieElem.ariaLabel = 'You may also like this';
+
+    movieElem.innerHTML = `
+    
+			<div class="title-wrapper">
+            <h3 class="title-large">You may also like this</h3>
+        </div>
+
+        <div class="slider-list">
+            <div class="slider-inner"></div>
+        </div>
+    `;
+
+
+    for (const movie of movieList) {
+        const movieCard = createMovieCard(movie);
+        movieElem.querySelector(".slider-inner").append(movieCard);
+    };
+
+
+
+    pageContent.append(movieElem);
+};
 
 });
 
