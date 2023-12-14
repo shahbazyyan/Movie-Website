@@ -16,7 +16,7 @@ const homePageMovies = [
         path: "/movie/upcoming"
     },
     {
-        title: "Today/'s Treading Movies",
+        title: "Weakly Treading Movies",
         path: "/trending/movie/week"
     },
     {
@@ -85,7 +85,7 @@ function heroBanner({ results: movieList }) {
                 </div>
                 <p class="genre">${genreList.asString(genre_ids)}</p>
                 <p class="banner-text">${overview}</p>
-                <a href="./detail.html" class="btn">
+                <a href="./detail.html" class="btn" ${onclick=getMovieDetails(id)}>
                     <img src="./assets/images/play_circle.png" alt="circle" width="24" height="24" aria-hidden="true">
                     <span class="span">Watch Now</span>
                 </a>

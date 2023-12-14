@@ -73,8 +73,8 @@ function siderbar() {
             sidebar.classList.remove("active");
             sidebarBtn.classList.remove("active");
             overlay.classList.remove("active");
-        })
-    }
+        });
+    };
 
 };
 
