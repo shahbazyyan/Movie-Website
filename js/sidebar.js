@@ -19,8 +19,6 @@ function siderbar() {
     siderbarInner.innerHTML = `
     <div class="sidebar-list">
 				<p class="title">Genre</p>
-				
-				<a href="./movie-list.html" menu-close class="sidebar-link">Sci-Fi</a>
 			</div>
 
 			<div class="sidebar-list">
@@ -44,7 +42,7 @@ function siderbar() {
     const genreLink = function () {
         for (const [genreId, genreName] of Object.entries(genreList)) {
             const link = document.createElement("a");
-            link.classList.add("sidebar-inner");
+            link.classList.add("sidebar-link");
             link.setAttribute("href", "./movie-lisy.html");
             link.setAttribute("menu-close", "");
             // link.setAttribute("onClick", `getMoviesList("with_genres=${genreId}", "${genreName}")`)
