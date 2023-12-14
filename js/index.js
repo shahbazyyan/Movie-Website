@@ -2,10 +2,29 @@
 
 import siderbar from "./sidebar.js";
 import { api_key, imgBaseURL, fetchData } from "./api.js";
+import { createMovieCard } from './movie-card.js';
 
 const pageContent = document.querySelector("[page-content]");
 
 siderbar();
+
+// HOME PAGE Movies
+
+const homePageMovies = [
+    {
+        title: "Upcoming Movies",
+        path: "/movie/upcoming"
+    },
+    {
+        title: "Today/'s Treading Movies",
+        path: "/trending/movie/week"
+    },
+    {
+        title: "Top Rated Movies",
+        path: "/movie/top_rated"
+    },
+]
+
 
 const genreList = {
     asString(genreIdList) {
@@ -88,7 +107,15 @@ function heroBanner({ results: movieList }) {
     pageContent.append(banner);
 
     addHeroSlide();
-}
+
+    // upcoming movies
+
+    for (const {title, path} of homePageMovies ) {
+        fetchData(`https://api.themoviedb.org/3${path}?api_key=${api_key}&page=1`, createMovieList, title);
+    }
+
+
+};
 
 function addHeroSlide() {
     const sliderItem = document.querySelectorAll("[slider-item]");
@@ -114,4 +141,33 @@ function addHeroSlide() {
     sliderControl.forEach(control => {
         control.addEventListener("click", sliderStart);
     });
-}
+};
+
+
+function createMovieList ({results: movieList}, title) {
+    const movieElem = document.createElement("section");
+    movieElem.classList.add("movie-list");
+    movieElem.ariaLabel = `${title}`;
+
+    movieElem.innerHTML = `
+    
+			<div class="title-wrapper">
+            <h3 class="title-large">${title}</h3>
+        </div>
+
+        <div class="slider-list">
+            <div class="slider-inner"></div>
+        </div>
+    `;
+
+
+    for (const movie of movieList) {
+        const movieCard = createMovieCard(movie);
+
+        movieElem.querySelector(".slider-inner").append(movieCard);
+    };
+
+
+
+    pageContent.append(movieElem);
+};
