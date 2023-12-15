@@ -55,7 +55,8 @@ fetchData(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${api_key}&appe
         videos: { results: videos },
     } = movie;
 
-    console.log(movieId);
+    document.title = `${title} - DFilm`
+
     const movieDetail = document.createElement("div");
     movieDetail.classList.add("movie-detail");
 
@@ -129,11 +130,12 @@ fetchData(`https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key
 addSuggetionsMovies
 );
 
+
 function addSuggetionsMovies ({results: movieList}, title) {
     const movieElem = document.createElement("section");
     movieElem.classList.add("movie-list");
     movieElem.ariaLabel = 'You may also like this';
-
+   
     movieElem.innerHTML = `
     
 			<div class="title-wrapper">

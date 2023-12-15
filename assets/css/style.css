@@ -152,6 +152,7 @@ body {
   border-radius: var(--radius-8);
   border-inline-end-color: transparent;
   animation: load .5s linear infinite;
+  display: none;
 }
 
 .search-wrapper::before {
@@ -448,6 +449,8 @@ header {
   opacity: 0;
 }
 
+
+
 /*-----------------------------------*\
   #SIDEBAR
 \*-----------------------------------*/
@@ -718,7 +721,12 @@ header {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(0deg, hsla(250, 14%, 11%, 1), hsla(250, 13%, 11%, .9));
+  background-image: linear-gradient(0deg, hsla(250, 14%, 9%, 1), hsla(250, 13%, 9%, .7));
+}
+
+.detail-content {
+  background-image: linear-gradient(0deg, hsla(250, 14%, 9%, 1), hsla(250, 13%, 9%, .7));
+  padding: 5px;
 }
 
 .movie-detail .movie-poster {

@@ -23,7 +23,7 @@ function searchMovies () {
             return;
         };
 
-        // searchWrapper.classList.add("searching");
+        searchWrapper.classList.add("searching");
         clearTimeout(searchTimeOut);
 
         searchTimeOut = setTimeout(function () {
