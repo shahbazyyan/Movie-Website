@@ -14,3 +14,8 @@ addEvents(searchTogglers, "click", function () {
 const getMovieDetails = function (movieId) {
  window.localStorage.setItem("movieId", String(movieId));
 }; 
+
+const getMovieList = function(paramsURL, genreName) {
+  window.localStorage.setItem("paramsURL", paramsURL);
+  window.localStorage.setItem("genreName", genreName);
+}
