@@ -24,7 +24,7 @@ function createMovieCard(movie) {
         <img src="./assets/images/star.png" alt="star" loading="lazy" width="20" height="20">
         <span class="span">${vote_average.toFixed(1)}</span>
                 </div>
-                <div class="card-badge">${release_date.split("-")[0]}</div>            
+                <div class="card-badge">${release_date}</div>            
          </div>
          <a href="./detail.html" class="card-btn" title="${title}"  ${onclick=getMovieDetails(id)}>
          </a>
