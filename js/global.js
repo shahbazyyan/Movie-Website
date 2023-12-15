@@ -19,3 +19,4 @@ const getMovieList = function(paramsURL, genreName) {
   window.localStorage.setItem("paramsURL", paramsURL);
   window.localStorage.setItem("genreName", genreName);
 }
+

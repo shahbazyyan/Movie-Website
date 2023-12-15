@@ -2,6 +2,7 @@
 
 import { api_key, fetchData } from "./api.js";
 import { createMovieCard } from "./movie-card.js";
+import searchMovies from "./search.js";
 import sidebar from './sidebar.js';
 
 const pageContent = document.querySelector("[page-content]");
@@ -59,6 +60,6 @@ document.querySelector("[load-more]").addEventListener("click", function () {
      }
   });
 });
-
-
 });
+
+searchMovies();

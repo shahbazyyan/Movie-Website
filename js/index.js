@@ -3,6 +3,7 @@
 import siderbar from "./sidebar.js";
 import { api_key, imgBaseURL, fetchData } from "./api.js";
 import { createMovieCard } from './movie-card.js';
+import searchMovies from "./search.js";
 
 const pageContent = document.querySelector("[page-content]");
 
@@ -85,7 +86,7 @@ function heroBanner({ results: movieList }) {
                 </div>
                 <p class="genre">${genreList.asString(genre_ids)}</p>
                 <p class="banner-text">${overview}</p>
-                <a href="./detail.html" class="btn" ${onclick=getMovieDetails(id)}>
+                <a href="./detail.html" class="btn" onclick='getMovieDetails("${id}")'>
                     <img src="./assets/images/play_circle.png" alt="circle" width="24" height="24" aria-hidden="true">
                     <span class="span">Watch Now</span>
                 </a>
@@ -170,3 +171,5 @@ function createMovieList ({results: movieList}, title) {
 
     pageContent.append(movieElem);
 };
+
+searchMovies();

@@ -26,7 +26,7 @@ function createMovieCard(movie) {
                 </div>
                 <div class="card-badge">${release_date}</div>            
          </div>
-         <a href="./detail.html" class="card-btn" title="${title}"  ${onclick=getMovieDetails(id)}>
+         <a href="./detail.html" class="card-btn" title="${title}"  onclick='getMovieDetails("${id}")'>
          </a>
     `;
 
