@@ -551,7 +551,7 @@ header {
 
 .container {
   position: relative;
-  background-color: var(--surface);
+  background-image: linear-gradient(0deg, hsla(250, 14%, 9%, 1), hsla(250, 13%, 9%, .7));
   color: var(--on-surface);
   padding: 24px 20px 48px;
   height: calc(100vh - 96px);
@@ -820,3 +820,19 @@ margin-block-end: 8px;
 /*-----------------------------------*\
   #MEDIA QUERIES
 \*-----------------------------------*/
+
+@media (min-width: 575px) {
+  .banner-content {
+    right: auto;
+    max-width: 500px;
+  }
+
+  .slider-control {
+    left: calc(100% - 600px);
+  }
+
+  .detail-content {
+    max-width: 750px;
+  }
+
+}
