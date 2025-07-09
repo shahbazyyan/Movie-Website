@@ -13,13 +13,84 @@
 </head>
 <!-- Start of LiveChat (www.livechat.com) code -->
 <script>
-    window.__lc = window.__lc || {};
-    window.__lc.license = 19228147;
-    window.__lc.integration_name = "manual_channels";
-    window.__lc.product_name = "livechat";
-    ;(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[LiveChatWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.livechatinc.com/tracking.js",t.head.appendChild(n)}};!n.__lc.asyncInit&&e.init(),n.LiveChatWidget=n.LiveChatWidget||e}(window,document,[].slice))
+  window.__lc = window.__lc || {};
+  window.__lc.license = 19228147;
+  window.__lc.integration_name = "manual_channels";
+  window.__lc.product_name = "livechat";
+  ;(function(n,t,c){
+    function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}
+    var e={
+      _q:[],_h:null,_v:"2.0",
+      on:function(){i(["on",c.call(arguments)])},
+      once:function(){i(["once",c.call(arguments)])},
+      off:function(){i(["off",c.call(arguments)])},
+      get:function(){if(!e._h)throw new Error("[LiveChatWidget] You can't use getters before load."); return i(["get",c.call(arguments)])},
+      call:function(){i(["call",c.call(arguments)])},
+      init:function(){
+        var n=t.createElement("script");
+        n.async=!0,n.type="text/javascript",n.src="https://cdn.livechatinc.com/tracking.js";
+        t.head.appendChild(n)
+      }
+    };
+    !n.__lc.asyncInit && e.init(), n.LiveChatWidget=n.LiveChatWidget||e
+  })(window,document,[].slice);
 </script>
-<noscript><a href="https://www.livechat.com/chat-with/19228147/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechat.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
+
+<!-- Make chat widget draggable -->
+<script>
+  function makeDraggable(el) {
+    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    el.onmousedown = dragMouseDown;
+
+    function dragMouseDown(e) {
+      e = e || window.event;
+      e.preventDefault();
+      // get mouse cursor at startup
+      pos3 = e.clientX;
+      pos4 = e.clientY;
+      document.onmouseup = closeDragElement;
+      document.onmousemove = elementDrag;
+    }
+
+    function elementDrag(e) {
+      e = e || window.event;
+      e.preventDefault();
+      // calculate new cursor position
+      pos1 = pos3 - e.clientX;
+      pos2 = pos4 - e.clientY;
+      pos3 = e.clientX;
+      pos4 = e.clientY;
+      // set new position
+      el.style.top = (el.offsetTop - pos2) + "px";
+      el.style.left = (el.offsetLeft - pos1) + "px";
+    }
+
+    function closeDragElement() {
+      document.onmouseup = null;
+      document.onmousemove = null;
+    }
+  }
+
+  // Wait for LiveChat to load and make its button draggable
+  const waitForChat = setInterval(() => {
+    const chatFrame = document.querySelector('iframe[src*="livechat"]');
+    if (chatFrame) {
+      // Wrap the iframe in a div if needed
+      const wrapper = document.createElement("div");
+      wrapper.style.position = "fixed";
+      wrapper.style.top = "50px";
+      wrapper.style.left = "50px";
+      wrapper.style.zIndex = "9999";
+      wrapper.style.cursor = "move";
+
+      chatFrame.parentNode.insertBefore(wrapper, chatFrame);
+      wrapper.appendChild(chatFrame);
+
+      makeDraggable(wrapper);
+      clearInterval(waitForChat);
+    }
+  }, 1000);
+</script>
 <!-- End of LiveChat code -->
 
 <body>
