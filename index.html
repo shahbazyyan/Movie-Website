@@ -36,16 +36,15 @@
   })(window,document,[].slice);
 </script>
 
-<!-- Make chat widget draggable -->
 <script>
   function makeDraggable(el) {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    el.style.position = 'fixed'; // Required for draggable effect
     el.onmousedown = dragMouseDown;
 
     function dragMouseDown(e) {
       e = e || window.event;
       e.preventDefault();
-      // get mouse cursor at startup
       pos3 = e.clientX;
       pos4 = e.clientY;
       document.onmouseup = closeDragElement;
@@ -55,12 +54,10 @@
     function elementDrag(e) {
       e = e || window.event;
       e.preventDefault();
-      // calculate new cursor position
       pos1 = pos3 - e.clientX;
       pos2 = pos4 - e.clientY;
       pos3 = e.clientX;
       pos4 = e.clientY;
-      // set new position
       el.style.top = (el.offsetTop - pos2) + "px";
       el.style.left = (el.offsetLeft - pos1) + "px";
     }
@@ -71,26 +68,16 @@
     }
   }
 
-  // Wait for LiveChat to load and make its button draggable
-  const waitForChat = setInterval(() => {
-    const chatFrame = document.querySelector('iframe[src*="livechat"]');
-    if (chatFrame) {
-      // Wrap the iframe in a div if needed
-      const wrapper = document.createElement("div");
-      wrapper.style.position = "fixed";
-      wrapper.style.top = "50px";
-      wrapper.style.left = "50px";
-      wrapper.style.zIndex = "9999";
-      wrapper.style.cursor = "move";
-
-      chatFrame.parentNode.insertBefore(wrapper, chatFrame);
-      wrapper.appendChild(chatFrame);
-
-      makeDraggable(wrapper);
-      clearInterval(waitForChat);
+  // Wait until chat widget appears in DOM
+  const interval = setInterval(() => {
+    const button = document.querySelector('[id^="lc-"]'); // Try to match floating launcher
+    if (button && getComputedStyle(button).position === 'fixed') {
+      makeDraggable(button);
+      clearInterval(interval);
     }
   }, 1000);
 </script>
+
 <!-- End of LiveChat code -->
 
 <body>
